@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.org/martinsik/minecraft-dynmap-timemachine.svg?branch=master)](https://travis-ci.org/martinsik/minecraft-dynmap-timemachine)
 
+## Docker support
+
+This project is now on Docker and can run on a specified cron schedule specified by the `CRON_SCHEDULE` environment variable. You can build the image locally or use the one from Docker Hub: [mattjeanes/minecraft-dynmap-timemachine](https://hub.docker.com/r/mattjeanes/minecraft-dynmap-timemachine/).
+
+## Description
+
 Python 2.7, 3.3+ and PyPy command line script that downloads tiles from a Minecraft's Dynmap plugin HTTP server and composes one image in extremely large resolution suitable for print.
 
 ![Scaled down image](https://raw.githubusercontent.com/martinsik/minecraft-dynmap-timemachine/master/doc/majncraft.3320.crop.png)
