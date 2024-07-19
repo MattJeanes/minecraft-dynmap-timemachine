@@ -48,7 +48,7 @@ class DynMap(object):
         m = re.search('url \: (.+)};', jsonlike_str, re.DOTALL)
         #return json.loads(m.group(1))
 
-        pattern = r"([a-zA-Z_][a-zA-Z_0-9]*)\s*\:"
+        pattern = r"([a-zA-Z_][a-zA-Z_0-9]*)\s*:"
         repl = lambda match: '"{}":'.format(match.group(1))
         json_str = re.sub(pattern, repl, m.group(1))
         #print json_str
