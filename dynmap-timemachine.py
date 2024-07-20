@@ -13,7 +13,7 @@ import minecraft_dynmap_timemachine.time_machine as time_machine
 import minecraft_dynmap_timemachine.projection as projection
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('base_url', help='Dynamp server URL')
     parser.add_argument('world', nargs='?', help='world name, use --list-worlds to list available worlds')
@@ -61,7 +61,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         if args.list_maps:
-            logging.info('available maps for world "%s": %s', args.world, dm.worlds[args.world].maps)
+            logging.debug('available maps for world "%s": %s', args.world, dm.worlds[args.world].maps)
             maps = dm.worlds[args.world].maps
             for name in maps.keys():
                 print('%s - %s' % (name, maps[name].title))
@@ -101,8 +101,13 @@ if __name__ == '__main__':
                 dest = os.path.join(dest, time.strftime('%Y-%m-%d %H-%M-%S') + '.png')
                 img.save(dest)
                 logging.info('saving timelapse image to "%s" (%d KB) with difference %.2f', dest, os.path.getsize(dest) / 1000, difference * 100)
+            else:
+                logging.info('skipping saving image, difference %.2f is below threshold %.2f', difference * 100, threshold * 100)
         else:
             img.save(dest)
             logging.info('saving image to "%s" (%d KB)', dest, os.path.getsize(dest) / 1000)
 
         # sys.exit(0)
+
+if __name__ == '__main__':
+    main()

@@ -1,6 +1,7 @@
 import logging
 import time
 import io
+import numpy as np
 
 from . import projection
 from . import simple_downloader
@@ -32,7 +33,7 @@ class TimeMachine(object):
                 img_url = self._dm_map.url + img_rel_path
 
                 processed += 1
-                logging.info('tile %d/%d [%d, %d]', processed, total_tiles, x, y)
+                logging.debug('tile %d/%d [%d, %d]', processed, total_tiles, x, y)
 
                 try:
                     img_data = simple_downloader.download(img_url, True)
@@ -54,12 +55,12 @@ class TimeMachine(object):
 
 
     def compare_images(self, image1, image2):
-        file1data = list(image1.getdata())
-        file2data = list(image2.getdata())
+        # Convert images to NumPy arrays
+        arr1 = np.array(image1)
+        arr2 = np.array(image2)
 
-        diff = 0
-        for i in range(len(file1data)):
-            if file1data[i] != file2data[i]:
-                diff += 1
+        # Calculate the difference
+        diff = np.sum(arr1 != arr2)
 
-        return float(diff) / len(file1data)
+        # Return the proportion of different pixels
+        return float(diff) / arr1.size
